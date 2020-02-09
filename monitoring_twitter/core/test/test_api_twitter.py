@@ -1,5 +1,6 @@
+from datetime import datetime, timedelta
+
 from django.test import TestCase
-from twitter import TwitterError
 
 from core.api_twitter import ApiTwitter
 from monitoring_twitter.settings import env_config
@@ -8,7 +9,6 @@ from monitoring_twitter.settings import env_config
 class TestApiTwitter(TestCase):
     def setUp(self) -> None:
         consumer_key = env_config.get('consumer_key')
-
         consumer_secret = env_config.get('consumer_secret')
         access_token_key = env_config.get('access_token_key')
         access_token_secret = env_config.get('access_token_secret')
@@ -17,12 +17,22 @@ class TestApiTwitter(TestCase):
                            'access_token_key': access_token_key,
                            'access_token_secret': access_token_secret
                            }
+        since = datetime.now() - timedelta(days=3)
+        since = since.strftime('%Y-%m-%d')
+        self.hash_tag = '#python'
+        self.tweets = ApiTwitter(self.credential).get_tweets(hash_tag=self.hash_tag, since=since)
 
-    def test_credential_twitter(self):
-        resp = ApiTwitter(self.credential).check_credentials()
-        self.assertIsInstance(resp.verified, bool)
+    def test_get_date_publish(self):
+        """Must be return date publish with instance datetime"""
+        for tweet in self.tweets:
+            self.assertIsInstance(tweet['date_publish'], datetime)
 
-    def test_error_credentials(self):
-        self.credential.update({'consumer_key': 'tdsd2dsdsds'})
-        resp = ApiTwitter(self.credential).check_credentials()
-        self.assertEqual(resp[0]['code'], 32)
+    def test_get_message(self):
+        """Must be return message content hash tag #Python """
+        for tweet in self.tweets:
+            self.assertIn(self.hash_tag, tweet['message'].lower())
+
+    def test_get_author(self):
+        """Must be return string for author"""
+        for tweet in self.tweets:
+            self.assertIsInstance(tweet['author'], str)
