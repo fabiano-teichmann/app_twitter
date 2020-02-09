@@ -1,3 +1,4 @@
 django
 python-twitter
 python-decouple
+pydantic
