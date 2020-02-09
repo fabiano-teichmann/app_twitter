@@ -1,4 +1,6 @@
 django
-python-twitter
 python-decouple
 pydantic
+django-extensions
+ipython
+tweepy
