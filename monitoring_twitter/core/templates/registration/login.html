@@ -1,10 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Login{% endblock %}
+{% block content %}
 <body>
+    <div class="col-md-12 text-center">
+        <hr>
+        <h1 class="h3 mb-3 font-weight-normal text-center">Por favor, faça o login</h1>
+        <form class="form-signin text-center " method="post">
+          {% csrf_token %}
+          {{ form.as_p }}
+        <button class="btn btn-primary text-center " type="submit">Login</button>
+        </form>
+    </div>
+  </body>
+{% endblock %}
 
-</body>
-</html>

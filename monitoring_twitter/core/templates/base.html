@@ -23,16 +23,16 @@
 </head>
 <body>
     <div class="container">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <nav class="navbar navbar-light">
             <ul class="nav">
                 <li class="nav-item">
-                    <a href="{% url 'tweet'%}"> Tweets </a>
+                    <a class="nav-link"  href="{% url 'tweet'%}"> Tweets </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{% url 'list_hashtags'%}"> Listar Hash Tags </a>
+                    <a class="nav-link"  href="{% url 'list_hashtags'%}"> Listar Hash Tags </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{% url 'create_hashtag'%}">Cadastrar Hash Tags</a>
+                    <a class="nav-link"  href="{% url 'create_hashtag'%}">Cadastrar Hash Tags</a>
                 </li>
             </ul>
         </nav>
