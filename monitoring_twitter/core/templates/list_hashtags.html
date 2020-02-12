@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#add_hashtag">
+        Adicionar Hashtag
+    </button>
+
+    <ul class="list-group">
+
+        {% for hashtag in data %}
+            <li class="list-group-item">
+                <a href="{% url 'delete_hashtag' pk=hashtag.pk%}">
+                    <i class="far fa-trash-alt"></i></a>  {{hashtag.hashtag}}
+            </li>
+        {% endfor %}
+
+    </ul>
+    {%include 'create_hashtag.html'%}
+
+{% endblock %}

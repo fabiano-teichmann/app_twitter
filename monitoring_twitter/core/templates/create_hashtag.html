@@ -1,0 +1,29 @@
+<div class="modal" id="add_hashtag">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Adicionar Hashtags</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <form action="/create_hashtag" method="POST">
+                 {% csrf_token %}
+
+                <!-- Modal footer -->
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="hashtag">Hashtag</label>
+                        <input class="form-control" name="hashtag" id="hashtag" type="text" placeholder="Hashtag">
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                     <button class="btn btn-outline-primary ">Adicionar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
