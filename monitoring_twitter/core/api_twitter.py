@@ -14,15 +14,15 @@ class ApiTwitter:
         auth.set_access_token(self.access_token_key, self.access_token_secret)
         return tweepy.API(auth, wait_on_rate_limit=True)
 
-    def get_tweets(self, hash_tag: str, since: str) -> list:
+    def get_tweets(self, hashtag: str, since: str) -> list:
         """
         Get tweets content specific hash tag from a defined date
-        :param hash_tag: str
+        :param hashtag: str
         :param since: str example 2020-02-09
         :return: list content tweets
         """
         list_tweets = []
-        for tweet in tweepy.Cursor(self.api.search, q=hash_tag, count=100,
+        for tweet in tweepy.Cursor(self.api.search, q=hashtag, count=100,
                                    lang="pt-br", since=since, tweet_mode='extended').items():
             try:
                 text = tweet.retweeted_status.full_text

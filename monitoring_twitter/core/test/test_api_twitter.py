@@ -1,6 +1,6 @@
 from datetime import datetime, timedelta
-
 from django.test import TestCase
+
 
 from core.api_twitter import ApiTwitter
 from monitoring_twitter.settings import env_config
@@ -19,8 +19,8 @@ class TestApiTwitter(TestCase):
                            }
         since = datetime.now() - timedelta(days=3)
         since = since.strftime('%Y-%m-%d')
-        self.hash_tag = '#python'
-        self.tweets = ApiTwitter(self.credential).get_tweets(hash_tag=self.hash_tag, since=since)
+        self.hashtag = '#python'
+        self.tweets = ApiTwitter(self.credential).get_tweets(hashtag=self.hashtag, since=since)
 
     def test_get_date_publish(self):
         """Must be return date publish with instance datetime"""
@@ -30,7 +30,7 @@ class TestApiTwitter(TestCase):
     def test_get_message(self):
         """Must be return message content hash tag #Python """
         for tweet in self.tweets:
-            self.assertIn(self.hash_tag, tweet['message'].lower())
+            self.assertIn(self.hashtag, tweet['message'].lower())
 
     def test_get_author(self):
         """Must be return string for author"""

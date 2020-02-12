@@ -12,7 +12,7 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AddField(
             model_name='tweet',
-            name='hash_tag',
+            name='hashtag',
             field=models.CharField(default=None, max_length=60),
             preserve_default=False,
         ),
