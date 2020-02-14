@@ -1,4 +1,6 @@
 from datetime import datetime, timedelta
+from unittest import skip
+
 from django.test import TestCase
 
 
@@ -22,16 +24,19 @@ class TestApiTwitter(TestCase):
         self.hashtag = '#python'
         self.tweets = ApiTwitter(self.credential).get_tweets(hashtag=self.hashtag, since=since)
 
+    @skip('Pause because rating Api')
     def test_get_date_publish(self):
         """Must be return date publish with instance datetime"""
         for tweet in self.tweets:
             self.assertIsInstance(tweet['date_publish'], datetime)
 
+    @skip('Pause because rating Api')
     def test_get_message(self):
         """Must be return message content hash tag #Python """
         for tweet in self.tweets:
             self.assertIn(self.hashtag, tweet['message'].lower())
 
+    @skip('Pause because rating Api')
     def test_get_author(self):
         """Must be return string for author"""
         for tweet in self.tweets:
