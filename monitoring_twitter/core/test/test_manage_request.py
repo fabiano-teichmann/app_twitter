@@ -1,5 +1,5 @@
+import time
 from datetime import datetime, timedelta
-
 from django.contrib.auth.models import User
 from django.test import TestCase
 
@@ -16,12 +16,17 @@ class TestManageRequestApiTwitter(TestCase):
         self.client.post('/create_hashtag', self.data)
 
     def test_not_have_updates(self):
-        """Must be return 0 hashtag updated"""
+        """Must be return 0 hashtag updated because last updated a less 2 minutes"""
+        date = datetime.now() - timedelta(seconds=119)
+        hashtag = Hashtag.objects.get(hashtag="#python")
+        hashtag.updated_at = date
+        hashtag.save()
         hashtags = ManagerRequestApiTwitter().get_hashtags_for_update()
         self.assertEqual(len(hashtags), 0)
 
     def test_update_tweets(self):
-        date = datetime.now() - timedelta(seconds=61)
+        """Must be return list hashtag updated content in list hashtag #python"""
+        date = datetime.now() - timedelta(seconds=121)
         hashtag = Hashtag.objects.get(hashtag="#python")
         hashtag.updated_at = date
         hashtag.save()

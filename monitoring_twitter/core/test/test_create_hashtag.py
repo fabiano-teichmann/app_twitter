@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from django.test import TestCase
 
-from core.models import Hashtag
+from core.models import Hashtag, Tweet
 
 
 class TestCreateHashTags(TestCase):
@@ -21,3 +21,8 @@ class TestCreateHashTags(TestCase):
     def test_block_hashtag(self):
         """Must be block hashtag if hashtag exist"""
         resp = self.client.post('/create_hashtag', self.data)
+
+    def test_get_tweets(self):
+        """Must be insert database Tweets"""
+        tweets = Tweet.objects.all().count()
+        self.assertNotEqual(tweets, 0)

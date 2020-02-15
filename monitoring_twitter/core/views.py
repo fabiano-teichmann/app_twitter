@@ -5,6 +5,7 @@ from django.utils.decorators import method_decorator
 from django.views import generic
 
 from core.forms import HashtagForm
+from core.manage_request_twitter import ManagerRequestApiTwitter
 from core.models import Tweet, Hashtag
 
 
@@ -21,16 +22,34 @@ class CreateHashTagView(generic.CreateView):
 
     def post(self, request, *args, **kwargs):
         pk_user = request.user.pk
-        hashtag = request.POST['hashtag']
-        if hashtag:
-            if '#' not in hashtag:
-                hashtag = '#' + hashtag
-            hashtag_exist = self.model.objects.filter(hashtag=hashtag).count()
+        input_hashtag = self.get_input()
+        if input_hashtag:
+            hashtag_exist = self.model.objects.filter(hashtag=input_hashtag).count()
             if hashtag_exist:
                 messages.warning(request, 'Essa hashtag já existe.')
-                return redirect('/list_hashtags')
-            self.model.objects.create(hashtag=hashtag, user_id=pk_user)
-            return redirect('/list_hashtags')
+            else:
+                hashtag = self.model.objects.create(hashtag=input_hashtag, user_id=pk_user)
+                self.get_tweets(hashtag)
+        return redirect('/list_hashtags')
+
+    def get_tweets(self, hashtag):
+        total_tweets = ManagerRequestApiTwitter().update_tweets(hashtag)
+        if total_tweets:
+            msg = f"Hashtag criada com sucesso foi encontrado {total_tweets} com a hashtag {hashtag.hashtag}"
+            messages.info(self.request, msg)
+        else:
+            msg = 'Não Houve um problema inesperado'
+            messages.warning(self.request, msg)
+
+    def get_input(self):
+        input_hashtag = self.request.POST['hashtag']
+        if input_hashtag:
+            if '#' not in input_hashtag:
+                input_hashtag = '#' + input_hashtag
+            return input_hashtag
+        else:
+            messages.warning(self.request, 'Não foi digitado nenhuma hashtag')
+        return None
 
 
 @method_decorator([login_required], name='dispatch')
