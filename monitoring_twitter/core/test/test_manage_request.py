@@ -17,7 +17,7 @@ class TestManageRequestApiTwitter(TestCase):
 
     def test_not_have_updates(self):
         """Must be return 0 hashtag updated because last updated a less 2 minutes"""
-        date = datetime.now() - timedelta(seconds=119)
+        date = datetime.now() - timedelta(seconds=59)
         hashtag = Hashtag.objects.get(hashtag="#python")
         hashtag.updated_at = date
         hashtag.save()
@@ -26,7 +26,7 @@ class TestManageRequestApiTwitter(TestCase):
 
     def test_update_tweets(self):
         """Must be return list hashtag updated content in list hashtag #python"""
-        date = datetime.now() - timedelta(seconds=121)
+        date = datetime.now() - timedelta(seconds=61)
         hashtag = Hashtag.objects.get(hashtag="#python")
         hashtag.updated_at = date
         hashtag.save()

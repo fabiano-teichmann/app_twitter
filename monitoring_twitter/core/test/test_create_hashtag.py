@@ -20,7 +20,9 @@ class TestCreateHashTags(TestCase):
 
     def test_block_hashtag(self):
         """Must be block hashtag if hashtag exist"""
-        resp = self.client.post('/create_hashtag', self.data)
+        self.client.post('/create_hashtag', self.data)
+        hashtags = Hashtag.objects.filter(hashtag='#python').count()
+        self.assertEqual(hashtags, 1)
 
     def test_get_tweets(self):
         """Must be insert database Tweets"""

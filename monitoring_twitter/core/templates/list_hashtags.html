@@ -5,11 +5,13 @@
         Adicionar Hashtag
     </button>
     {% if messages %}
-        <div class="alert alert-danger">
-            {% for message in messages %}
-                <li class="{{ message.tags }}">{{ message }}</li>
-            {% endfor %}
-        </div>
+        {% for message in messages %}
+            <div class="{%if message.tags == 'info'%} alert alert-success {%else%} alert alert-danger {%endif%} " >
+                {{ message }}
+            </div>
+
+        {% endfor %}
+
     {% endif %}
     <ul class="list-group">
 

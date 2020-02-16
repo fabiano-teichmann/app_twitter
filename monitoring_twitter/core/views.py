@@ -4,7 +4,6 @@ from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
 from django.views import generic
 
-from core.forms import HashtagForm
 from core.manage_request_twitter import ManagerRequestApiTwitter
 from core.models import Tweet, Hashtag
 
@@ -13,6 +12,10 @@ from core.models import Tweet, Hashtag
 class TweetView(generic.ListView):
     model = Tweet
     template_name = 'list_tweets.html'
+
+    def get(self, request, *args, **kwargs):
+        tweets = self.model.objects.all().order_by('-date_publish')
+        return render(request, self.template_name, {'tweets': tweets})
 
 
 @method_decorator([login_required], name='dispatch')
@@ -63,10 +66,7 @@ class ListHashtagsView(generic.ListView):
     model = Hashtag
 
     def get(self, request):
-        user_id = request.user.pk
-        # hashtags = self.model.objects.filter(user_id=user_id)
         hashtags = Hashtag.objects.all()
-        # return HttpResponse(hashtags)
         return render(request, 'list_hashtags.html', {'data': hashtags})
 
 

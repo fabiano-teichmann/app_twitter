@@ -14,3 +14,8 @@ class Hashtag(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+
+class RequestAPI(models.Model):
+    total_request = models.IntegerField()
+    date = models.DateTimeField()
