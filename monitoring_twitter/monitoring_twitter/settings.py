@@ -32,7 +32,7 @@ SECRET_KEY = env_config.get('secret_key')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env_config.get('debug', cast=bool)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['https://apptwitter.herokuapp.com/']
 
 
 # Application definition
@@ -127,4 +127,5 @@ USE_TZ = False
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfile')
 MESSAGE_LEVEL = 10
