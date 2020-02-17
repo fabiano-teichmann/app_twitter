@@ -129,3 +129,4 @@ USE_TZ = False
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfile')
 MESSAGE_LEVEL = 10
+django_heroku.settings(locals())
