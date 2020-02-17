@@ -1,3 +1,4 @@
+from datetime import timedelta
 import tweepy
 
 
@@ -29,7 +30,7 @@ class ApiTwitter:
             except AttributeError:
                 text = tweet.full_text
             list_tweets.append({'message': text, 'author': tweet.author.name,
-                                'date_publish': tweet.created_at})
+                                'date_publish': tweet.created_at - timedelta(hours=3)})
         return list_tweets
 
 

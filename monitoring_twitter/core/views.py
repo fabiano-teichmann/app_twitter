@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
 from django.views import generic
@@ -75,3 +76,11 @@ def delete_hashtag(request, pk):
     if request.method == 'GET':
         Hashtag.objects.filter(pk=pk).delete()
         return redirect('/list_hashtags')
+
+
+def update_hashtag(request):
+    if request.is_ajax():
+        list_hashtag_updated = ManagerRequestApiTwitter().get_hashtags_for_update()
+        return JsonResponse({'total_hashtags_updated': len(list_hashtag_updated), 'status': 'success'})
+    else:
+        return JsonResponse({'status': 'fail'})

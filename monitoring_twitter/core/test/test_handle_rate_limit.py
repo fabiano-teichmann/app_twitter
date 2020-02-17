@@ -1,5 +1,6 @@
 import time
 from datetime import datetime, timedelta
+from unittest import skip
 
 from django.test import TestCase
 
@@ -9,6 +10,7 @@ from core.models import RequestAPI
 
 class TestHandleRateLimit(TestCase):
 
+    @skip('Too Slow')
     def test_sleep_request(self):
         """Must be sleep 5 seconds and request total in window current is equal 1"""
         date = datetime.now() - timedelta(minutes=14)

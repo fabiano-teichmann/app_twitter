@@ -12,3 +12,5 @@ class TestListTweet(TestCase):
 
     def test_template_list_hashtag(self):
         self.assertTemplateUsed(self.resp, 'list_hashtags.html')
+
+
