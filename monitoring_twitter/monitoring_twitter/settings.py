@@ -28,7 +28,7 @@ SECRET_KEY = env_config.get('secret_key')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env_config.get('debug', cast=bool)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', 'fabianoteichmann.pythonanywhere.com']
 
 
 # Application definition
